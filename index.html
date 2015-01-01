@@ -1,0 +1,79 @@
+<html>
+    <head>
+        <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+        <script type="text/javascript" src="./leaflet/leaflet.js"></script>
+        <script type="text/javascript" src="http://requirejs.org/docs/release/1.0.7/minified/require.js"></script>
+        <link rel="stylesheet" href="./leaflet/leaflet.css" />
+        <style>
+            #map {
+                width: 100%;
+                height: 100%;
+                border: 2px solid blue;
+                float: left;
+            }
+        </style>
+        <script type="text/javascript">
+            require([  './ElementOverlay'], function( AffineOverlay2, ElementOverlay2) {
+                $(document).ready(function() {
+                    console.log('ready')
+                    var map = window.map = init_map("map")
+                    //normal image overlay
+                    var bounds = new L.LatLngBounds( new L.LatLng(0.1,0.1), new L.LatLng(3,3));
+                    var fart = L.elementOverlay('./leaflet/images/layers.png', bounds).addTo(map);
+                    //div overlay
+                    var bounds2 = new L.LatLngBounds( new L.LatLng(-12,-12), new L.LatLng(-0.1,-0.1));
+                    var div = document.createElement("div")
+                    div.id = "fooo"
+                    div.style.background = "rgba(255,255,255,0.5)"
+                    div.innerHTML = "<h1>This is a div element</h1>"
+                    var fart2 = L.elementOverlay( div, bounds2).addTo(map);
+                    //canvas overlay
+                    var bounds2 = new L.LatLngBounds( new L.LatLng(0,-9), new L.LatLng(8,-1));
+                    var canvas = document.createElement("canvas")
+                    canvas.width=canvas.height=300
+                    var ctx = canvas.getContext('2d')
+                    ctx.fillStyle = "#000"
+                    ctx.fillRect(0,0,300,300)
+                    canvas.id = "foocan"
+                    var fart3 = L.elementOverlay( canvas, bounds2).addTo(map);
+                    //add some animation to prove its a canvas
+                    setInterval( function(){
+                        var can = document.getElementById('foocan')
+                        var ctx = can.getContext('2d')
+                        ctx.fillStyle = "rgba(0,0,0,0.1)"
+                        ctx.fillRect(0,0, can.width, can.height)
+                        ctx.fillStyle="#0f0"
+                        ctx.fillRect( Math.floor(Math.random()*can.width), Math.floor(Math.random()*can.height), Math.floor(Math.random()*80), Math.floor(Math.random()*80))
+
+                    }, 90)
+
+                    return;
+                });
+            });
+
+            function init_map(map_div) {
+                var map = new L.Map(map_div);
+                var tileUrl =
+                    'http://otile1.mqcdn.com/tiles/1.0.0/sat/{z}/{x}/{y}.jpg';
+                var tileAttrib = 
+                    '&copy; <a href="http://www.openstreetmap.org/">OpenStreetMap</a> ' +
+                    'contributors, CC-BY-SA, Tiles Courtesy of ' +
+                    '<a href="http://developer.mapquest.com/web/products/open/map">' +
+                    'MapQuest</a>';
+                var tiles = new L.TileLayer(
+                    tileUrl,
+                    {maxZoom: 21, attribution: tileAttrib}
+                );
+                map.setView([0,0], 5).addLayer(tiles);
+
+                return map;
+            }
+
+        </script>
+    </head>
+    <body>
+        <div id="container">
+            <div id="map"></div>
+        </div>
+    </body>
+</html>

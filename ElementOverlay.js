@@ -14,12 +14,16 @@ L.ElementOverlay = L.ImageOverlay.extend({
       img.src = this._url;
     }else{
       img = this._image = this._url;
+      L.DomUtil.addClass( img, 'leaflet-image-layer')
+      L.DomUtil.addClass( img, this._zoomAnimated ? 'leaflet-zoom-animated' : '')
       setTimeout( L.bind(this.fire, this, 'load'),0);
     }
 
     img.onselectstart = L.Util.falseFn;
     img.onmousemove = L.Util.falseFn;
     img.alt = this.options.alt;
+    //img.classList.add('leaflet-image-layer')
+    //img.classList.add(this._zoomAnimated ? 'leaflet-zoom-animated' : '')
     img.style.position = "absolute"
   },
 

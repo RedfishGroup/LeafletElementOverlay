@@ -17,25 +17,29 @@
                 $(document).ready(function() {
                     console.log('ready')
                     var map = window.map = init_map("map")
-                    //normal image overlay
-                    var bounds = new L.LatLngBounds( new L.LatLng(0.1,0.1), new L.LatLng(3,3));
-                    var fart = L.elementOverlay('./leaflet/images/layers.png', bounds).addTo(map);
+                   
+                   //normal image overlay
+                    var bounds = new L.LatLngBounds( new L.LatLng(0.1,0.1), new L.LatLng(3,3))
+                    var fart = L.elementOverlay('./leaflet/images/layers.png', bounds).addTo(map)
+                    
                     //div overlay
-                    var bounds2 = new L.LatLngBounds( new L.LatLng(-12,-12), new L.LatLng(-0.1,-0.1));
+                    var bounds2 = new L.LatLngBounds( new L.LatLng(-12,-12), new L.LatLng(-0.1,-0.1))
                     var div = document.createElement("div")
                     div.id = "fooo"
                     div.style.background = "rgba(255,255,255,0.5)"
                     div.innerHTML = "<h1>This is a div element</h1>"
-                    var fart2 = L.elementOverlay( div, bounds2).addTo(map);
+                    var fart2 = L.elementOverlay( div, bounds2).addTo(map)
+                    
                     //canvas overlay
-                    var bounds2 = new L.LatLngBounds( new L.LatLng(0,-9), new L.LatLng(8,-1));
+                    var bounds2 = new L.LatLngBounds( new L.LatLng(0,-9), new L.LatLng(8,-1))
                     var canvas = document.createElement("canvas")
                     canvas.width=canvas.height=300
                     var ctx = canvas.getContext('2d')
                     ctx.fillStyle = "#000"
                     ctx.fillRect(0,0,300,300)
                     canvas.id = "foocan"
-                    var fart3 = L.elementOverlay( canvas, bounds2).addTo(map);
+                    var fart3 = L.elementOverlay( canvas, bounds2).addTo(map)
+                    
                     //add some animation to prove its a canvas
                     setInterval( function(){
                         var can = document.getElementById('foocan')

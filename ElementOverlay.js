@@ -6,14 +6,14 @@
 L.ElementOverlay = L.ImageOverlay.extend({
  
   _initImage: function () {
-    var img
+    var img;
     if( typeof this._url === "string"){
       img = this._image = L.DomUtil.create('img',
         'leaflet-image-layer ' + (this._zoomAnimated ? 'leaflet-zoom-animated' : ''));
       img.onload = L.bind(this.fire, this, 'load');
       img.src = this._url;
     }else{
-      img = this._image = this._url
+      img = this._image = this._url;
       setTimeout( L.bind(this.fire, this, 'load'),0);
     }
 

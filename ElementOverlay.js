@@ -19,7 +19,6 @@ L.ElementOverlay = L.ImageOverlay.extend({
 
     img.onselectstart = L.Util.falseFn;
     img.onmousemove = L.Util.falseFn;
-
     img.alt = this.options.alt;
   },
 

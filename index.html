@@ -20,7 +20,7 @@
                    
                    //normal image overlay
                     var bounds = new L.LatLngBounds( new L.LatLng(0.1,0.1), new L.LatLng(3,3))
-                    var fart = L.elementOverlay('./leaflet/images/layers.png', bounds).addTo(map)
+                    var layer = L.elementOverlay('./leaflet/images/layers.png', bounds).addTo(map)
                     
                     //div overlay
                     var bounds2 = new L.LatLngBounds( new L.LatLng(-12,-12), new L.LatLng(-0.1,-0.1))
@@ -28,7 +28,7 @@
                     div.id = "fooo"
                     div.style.background = "rgba(255,255,255,0.5)"
                     div.innerHTML = "<h1>This is a div element</h1>"
-                    var fart2 = L.elementOverlay( div, bounds2).addTo(map)
+                    var layer2 = L.elementOverlay( div, bounds2).addTo(map)
                     
                     //canvas overlay
                     var bounds2 = new L.LatLngBounds( new L.LatLng(0,-9), new L.LatLng(8,-1))
@@ -38,7 +38,7 @@
                     ctx.fillStyle = "#000"
                     ctx.fillRect(0,0,300,300)
                     canvas.id = "foocan"
-                    var fart3 = L.elementOverlay( canvas, bounds2).addTo(map)
+                    var layer3 = L.elementOverlay( canvas, bounds2).addTo(map)
                     
                     //add some animation to prove its a canvas
                     setInterval( function(){

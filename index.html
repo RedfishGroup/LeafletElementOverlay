@@ -2,7 +2,9 @@
     <head>
         <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
         <script type="text/javascript" src="./leaflet/leaflet-src.js"></script>
-        <script type="text/javascript" src="http://requirejs.org/docs/release/1.0.7/minified/require.js"></script>
+        <script src="elementOverlay.js"></script>
+        <script src="worldFile.js"></script>
+        <script ></script>
         <link rel="stylesheet" href="./leaflet/leaflet.css" />
         <style>
             #map {
@@ -13,69 +15,66 @@
             }
         </style>
         <script type="text/javascript">
-            require([   './ElementOverlay',
-                        './worldFile',
-                ], function( AffineOverlay2, ElementOverlay2) {
-                $(document).ready(function() {
-                    console.log('ready')
-                    var map = window.map = init_map("map")
-                   
-                   //normal image overlay
-                    var bounds = new L.LatLngBounds( new L.LatLng(0.1,0.1), new L.LatLng(3,3))
-                    var layer = L.elementOverlay('./leaflet/images/layers.png', bounds).addTo(map)
-                    
-                    //div overlay
-                    var bounds2 = new L.LatLngBounds( new L.LatLng(-12,-12), new L.LatLng(-0.1,-0.1))
-                    var div = document.createElement("div")
-                    div.id = "fooo"
-                    div.style.background = "rgba(255,255,255,0.5)"
-                    div.innerHTML = "<h1>This is a div element</h1>"
-                    var layer2 = L.elementOverlay( div, bounds2).addTo(map)
-                    
-                    //canvas overlay
-                    var bounds2 = new L.LatLngBounds( new L.LatLng(0,-9), new L.LatLng(8,-1))
-                    var canvas = document.createElement("canvas")
-                    canvas.width=canvas.height=300
-                    var ctx = canvas.getContext('2d')
-                    ctx.fillStyle = "#000"
-                    ctx.fillRect(0,0,300,300)
-                    canvas.id = "foocan"
-                    var layer3 = L.elementOverlay( canvas, bounds2).addTo(map)
-                    
-                    //add some animation to prove its a canvas
-                    setInterval( function(){
-                        var can = document.getElementById('foocan')
-                        var ctx = can.getContext('2d')
-                        ctx.fillStyle = "rgba(0,0,0,0.1)"
-                        ctx.fillRect(0,0, can.width, can.height)
-                        ctx.fillStyle="#0f0"
-                        ctx.fillRect( Math.floor(Math.random()*can.width), Math.floor(Math.random()*can.height), Math.floor(Math.random()*80), Math.floor(Math.random()*80))
+            $(document).ready(function() {
+                console.log('ready')
+                var map = window.map = init_map("map")
+               
+               //normal image overlay
+                var bounds = new L.LatLngBounds( new L.LatLng(0.1,0.1), new L.LatLng(3,3))
+                var layer = L.elementOverlay('./leaflet/images/layers.png', bounds).addTo(map)
+                
+                //div overlay
+                var bounds2 = new L.LatLngBounds( new L.LatLng(-12,-12), new L.LatLng(-0.1,-0.1))
+                var div = document.createElement("div")
+                div.id = "fooo"
+                div.style.background = "rgba(255,255,255,0.5)"
+                div.innerHTML = "<h1>This is a div element</h1>"
+                var layer2 = L.elementOverlay( div, bounds2).addTo(map)
+                
+                //canvas overlay
+                var bounds2 = new L.LatLngBounds( new L.LatLng(0,-9), new L.LatLng(8,-1))
+                var canvas = document.createElement("canvas")
+                canvas.width=canvas.height=300
+                var ctx = canvas.getContext('2d')
+                ctx.fillStyle = "#000"
+                ctx.fillRect(0,0,300,300)
+                canvas.id = "foocan"
+                var layer3 = L.elementOverlay( canvas, bounds2).addTo(map)
+                
+                //add some animation to prove its a canvas
+                setInterval( function(){
+                    var can = document.getElementById('foocan')
+                    var ctx = can.getContext('2d')
+                    ctx.fillStyle = "rgba(0,0,0,0.1)"
+                    ctx.fillRect(0,0, can.width, can.height)
+                    ctx.fillStyle="#0f0"
+                    ctx.fillRect( Math.floor(Math.random()*can.width), Math.floor(Math.random()*can.height), Math.floor(Math.random()*80), Math.floor(Math.random()*80))
 
-                    }, 90)
+                }, 90)
 
-                    loadUpworldFile()
+                loadUpworldFile()
 
-                    return;
-                });
-
-                function loadUpworldFile(){
-                    var paramTest = new L.WorldFile({imageUrl:"data/splat.png",params:{a:0.039,b:0,c:2,d:0,e:0.019,f:2}, opacity:0.4})
-                    paramTest.addTo(map)
-                    //load from url
-                    var urlTest = new L.WorldFile({imageUrl:"data/splat.png", textUrl:"data/splat.pgw"})
-                    urlTest.addTo(map)
-                    //
-                    // preloaded image
-                    var img = new Image()
-                    img.onload = function() {
-                        console.log('preload test running')
-                        var preload = new L.WorldFile({imageUrl:this,params:{a:0.039,b:0,c:6,d:0,e:0.039,f:-12}, opacity:0.7})
-                        preload.addTo(map)
-                    }
-                    img.src="data/splat.png"
-
-                }
+                return;
             });
+
+            function loadUpworldFile(){
+                var paramTest = new L.WorldFile({imageUrl:"data/splat.png",params:{a:0.039,b:0,c:2,d:0,e:0.019,f:2}, opacity:0.4})
+                paramTest.addTo(map)
+                //load from url
+                var urlTest = new L.WorldFile({imageUrl:"data/splat.png", textUrl:"data/splat.pgw"})
+                urlTest.addTo(map)
+                //
+                // preloaded image
+                var img = new Image()
+                img.onload = function() {
+                    console.log('preload test running')
+                    var preload = new L.WorldFile({imageUrl:this,params:{a:0.039,b:0,c:6,d:0,e:0.039,f:-12}, opacity:0.7})
+                    preload.addTo(map)
+                }
+                img.src="data/splat.png"
+
+            }
+
 
             function init_map(map_div) {
                 var map = new L.Map(map_div);

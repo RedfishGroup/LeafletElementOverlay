@@ -22,8 +22,6 @@ L.ElementOverlay = L.ImageOverlay.extend({
     img.onselectstart = L.Util.falseFn;
     img.onmousemove = L.Util.falseFn;
     img.alt = this.options.alt;
-    //img.classList.add('leaflet-image-layer')
-    //img.classList.add(this._zoomAnimated ? 'leaflet-zoom-animated' : '')
     img.style.position = "absolute"
   },
 

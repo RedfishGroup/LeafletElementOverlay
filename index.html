@@ -13,7 +13,9 @@
             }
         </style>
         <script type="text/javascript">
-            require([  './ElementOverlay'], function( AffineOverlay2, ElementOverlay2) {
+            require([   './ElementOverlay',
+                        './worldFile',
+                ], function( AffineOverlay2, ElementOverlay2) {
                 $(document).ready(function() {
                     console.log('ready')
                     var map = window.map = init_map("map")
@@ -51,8 +53,15 @@
 
                     }, 90)
 
+                    loadUpworldFile()
+
                     return;
                 });
+
+                function loadUpworldFile(){
+                    var paramTest = new L.WorldFile({imageURL:"data/splat.png",params:{a:0.039,b:0,c:2,d:0,e:0.019,f:2}})
+                    paramTest.addTo(map)
+                }
             });
 
             function init_map(map_div) {

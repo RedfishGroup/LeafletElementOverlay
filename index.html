@@ -59,8 +59,11 @@
                 });
 
                 function loadUpworldFile(){
-                    var paramTest = new L.WorldFile({imageURL:"data/splat.png",params:{a:0.039,b:0,c:2,d:0,e:0.019,f:2}})
+                    var paramTest = new L.WorldFile({imageUrl:"data/splat.png",params:{a:0.039,b:0,c:2,d:0,e:0.019,f:2}, opacity:0.4})
                     paramTest.addTo(map)
+                    //load from url
+                    var urlTest = new L.WorldFile({imageUrl:"data/splat.png", textUrl:"data/splat.pgw"})
+                    urlTest.addTo(map)
                 }
             });
 

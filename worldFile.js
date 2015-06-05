@@ -10,28 +10,29 @@ L.WorldFile = L.ElementOverlay.extend({
     },
 
     refreshWorldFile: function(options) {
-        if( !options.image && !options.imageURL) {
+        if( !options.image && !options.imageUrl) {
             throw('no image specified. ')
         }
         if( !options.params && !options.text && !options.textUrl) {
             throw('no world file text specified ')
         }
-        this.setUrl(options.image || options.imageURL)
         if( options.params) {
-            this.on('load', function(){
-                this.parseParams(options.params)
-            }.bind(this))
+            this.params = options.params
         } else if( options.text) {
-            parseText(options.text)
+            this.parseText(options.text)
         } else if( options.textUrl) {
-            loadText(options.textUrl)
+            this.loadText(options.textUrl)
         }
+        this.on('load', function(){
+            this.parseParams(this.params)
+        }.bind(this))
+        this.setUrl(options.image || options.imageUrl)
     },
 
     loadText: function(textUrl) {
         var oReq = new XMLHttpRequest()
         oReq.onload = function(e){
-            this.parseText(e.responseText)
+            this.parseText(e.target.responseText)
         }.bind(this)
         oReq.open("get", textUrl, true)
         oReq.send()
@@ -52,14 +53,16 @@ L.WorldFile = L.ElementOverlay.extend({
             }
         }
         var params = {a:items[0], b:items[2], c:items[4], d:items[1], e:items[3], f:items[5]};
-        this.parseParams(params)
+        this.params = params
+        this.parseParams()
     },
 
     parseParams:function(params){
+        params = params || this.params
         console.log(params)
-        if( this._image){
-            console.log(this._image.width, this._image.height)
-            var lr = L.latLng(params.e*this._image.height + params.f, params.a*this._image.width + params.c)
+        if( this._image && params){
+            console.log(this._image.naturalWidth, this._image.naturalHeight,this._image)
+            var lr = L.latLng(params.e*this._image.naturalHeight + params.f, params.a*this._image.naturalWidth + params.c)
             var ul = L.latLng(params.f, params.c)
             console.log(ul,lr)
             this._bounds =  L.latLngBounds(ul,lr)

@@ -1,4 +1,13 @@
+/*
+Parse and display a world file
+http://en.wikipedia.org/wiki/World_file
 
+Cody Smith and Redfish Group 2015
+
+usgage:
+    var urlTest = new L.WorldFile({imageUrl:"data/splat.png", textUrl:"data/splat.pgw"})
+    urlTest.addTo(map)
+*/
 L.WorldFile = L.ElementOverlay.extend({
     initialize: function (options) { //options {imgUrl, textUrl}
         console.log('init called')
@@ -41,7 +50,6 @@ L.WorldFile = L.ElementOverlay.extend({
     parseText: function(text) {
         this.worldFileText = text
         var items = text.split("\n");
-        console.log(text);
         if(items.length < 6) {
             throw("world file not in correct format")
         }
@@ -59,14 +67,10 @@ L.WorldFile = L.ElementOverlay.extend({
 
     parseParams:function(params){
         params = params || this.params
-        console.log(params)
         if( this._image && params){
-            console.log(this._image.naturalWidth, this._image.naturalHeight,this._image)
             var lr = L.latLng(params.e*this._image.naturalHeight + params.f, params.a*this._image.naturalWidth + params.c)
             var ul = L.latLng(params.f, params.c)
-            console.log(ul,lr)
-            this._bounds =  L.latLngBounds(ul,lr)
-            console.log(this._bounds)
+            this._bounds =  L.latLngBounds(ul, lr)
             this._reset()
         }
     },

@@ -64,6 +64,16 @@
                     //load from url
                     var urlTest = new L.WorldFile({imageUrl:"data/splat.png", textUrl:"data/splat.pgw"})
                     urlTest.addTo(map)
+                    //
+                    // preloaded image
+                    var img = new Image()
+                    img.onload = function() {
+                        console.log('preload test running')
+                        var preload = new L.WorldFile({imageUrl:this,params:{a:0.039,b:0,c:6,d:0,e:0.039,f:-12}, opacity:0.7})
+                        preload.addTo(map)
+                    }
+                    img.src="data/splat.png"
+
                 }
             });
 

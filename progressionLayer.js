@@ -1,6 +1,6 @@
 L.ProgresionLayer = L.WorldFile.extend({
     /*
-        This is a very hacky way to get this done. oh well.
+        A hacky way to display an animated fire progression on the map
 
     */
       _initImage: function () {

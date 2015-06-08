@@ -13,12 +13,14 @@ L.WorldFile = L.ElementOverlay.extend({
         console.log('init called')
         this.refreshWorldFile(options)
         L.setOptions(this, options)
-        var southWest = L.latLng(0,0)
-        var northEast = L.latLng(1,1)
-        this._bounds = L.latLngBounds(southWest, northEast);
     },
 
     refreshWorldFile: function(options) {
+        // some default values
+        var southWest = L.latLng(0,0)
+        var northEast = L.latLng(1,1)
+        this._bounds = L.latLngBounds(southWest, northEast);
+        // check
         if( !options.image && !options.imageUrl) {
             throw('no image specified. ')
         }

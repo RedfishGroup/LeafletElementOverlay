@@ -4,6 +4,7 @@
         <script type="text/javascript" src="./leaflet/leaflet-src.js"></script>
         <script src="elementOverlay.js"></script>
         <script src="worldFile.js"></script>
+        <script src="progressionLayer.js"></script>
         <script ></script>
         <link rel="stylesheet" href="./leaflet/leaflet.css" />
         <style>
@@ -53,6 +54,7 @@
                 }, 90)
 
                 loadUpworldFile()
+                loadUpProgression()
 
                 return;
             });
@@ -61,18 +63,41 @@
                 var paramTest = new L.WorldFile({imageUrl:"data/splat.png",params:{a:0.039,b:0,c:2,d:0,e:0.019,f:2}, opacity:0.4})
                 paramTest.addTo(map)
                 //load from url
-                var urlTest = new L.WorldFile({imageUrl:"data/splat.png", textUrl:"data/splat.pgw"})
+                var urlTest = new L.WorldFile({imageUrl:"data/NM-N6S-F5PS.png", textUrl:"data/NM-N6S-F5PS.pgw"})
                 urlTest.addTo(map)
                 //
                 // preloaded image
                 var img = new Image()
                 img.onload = function() {
                     console.log('preload test running')
-                    var preload = new L.WorldFile({imageUrl:this,params:{a:0.039,b:0,c:6,d:0,e:0.039,f:-12}, opacity:0.7})
+                    var w = 8/this.width
+                    var h = -6/this.height
+                    var preload = new L.WorldFile({imageUrl:this,params:{a:w,b:0,c:6,d:0,e:h,f:-5}, opacity:0.7})
                     preload.addTo(map)
                 }
-                img.src="data/splat.png"
+                img.src="data/dog.jpg"
+                //
+                // test changing the image every so often
+                setInterval( function(){
+                    var imgurl = "data/splat.png"
+                    if( Math.random()>0.5){
+                        imgurl = "data/NM-N6S-F5PS.png"
+                    }
+                    paramTest.refreshWorldFile( {imageUrl:imgurl,params:{a:0.039,b:0,c:2 + Math.random(),d:0,e:0.019,f:2+ Math.random()}, opacity:0.4} )
+                },1000)
+            }
 
+            function loadUpProgression() {
+                console.log('progression')
+                prgTest = new L.ProgresionLayer({imageUrl:"data/NM-N6S-F5PS.png",params:{a:0.039,b:0,c:2,d:0,e:0.019,f:-4}})
+                prgTest.addTo(map)
+                var prgTime = 0
+                setInterval( function(){
+                    if(prgTest.stats){
+                        prgTime += 10000
+                        prgTest.redrawCanvas(prgTime%prgTest.stats.max)
+                    }
+                },100)
             }
 
 

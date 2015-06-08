@@ -7,6 +7,9 @@ L.ElementOverlay = L.ImageOverlay.extend({
  
   _initImage: function () {
     var img;
+    if(this._image) {
+      this.onRemove()
+    }
     if( typeof this._url === "string"){
       img = this._image = L.DomUtil.create('img',
         'leaflet-image-layer ' + (this._zoomAnimated ? 'leaflet-zoom-animated' : ''));

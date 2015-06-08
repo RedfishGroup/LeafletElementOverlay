@@ -70,7 +70,9 @@ L.WorldFile = L.ElementOverlay.extend({
     parseParams:function(params){
         params = params || this.params
         if( this._image && params){
-            var lr = L.latLng(params.e*this._image.naturalHeight + params.f, params.a*this._image.naturalWidth + params.c)
+            var wid = this._image.naturalWidth || this._image.width
+            var hei = this._image.naturalHeight || this._image.height
+            var lr = L.latLng(params.e*wid + params.f, params.a*hei + params.c)
             var ul = L.latLng(params.f, params.c)
             this._bounds =  L.latLngBounds(ul, lr)
             this._reset()

@@ -18,7 +18,10 @@ L.ElementOverlay = L.ImageOverlay.extend({
     }else{
       img = this._image = this._url;
       L.DomUtil.addClass( img, 'leaflet-image-layer')
-      L.DomUtil.addClass( img, this._zoomAnimated ? 'leaflet-zoom-animated' : '')
+      if( this._zoomAnimated) {
+        L.DomUtil.addClass( img,'leaflet-zoom-animated' )
+      }
+ 
       setTimeout( L.bind(this.fire, this, 'load'),0);
     }
 
@@ -26,6 +29,15 @@ L.ElementOverlay = L.ImageOverlay.extend({
     img.onmousemove = L.Util.falseFn;
     img.alt = this.options.alt;
     img.style.position = "absolute"
+  },
+
+  setUrl: function (url) { //this is only needed for leaflet < 0.7.3. Can be removed with 1.0, but there is no CDN yet
+    this._url = url;
+
+    if (this._image) {
+      this._image.src = url;
+    }
+    return this;
   },
 
 });

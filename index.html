@@ -89,8 +89,8 @@
                 var prgTime = 0
                 setInterval( function(){
                     if(prgTest.stats){
-                        prgTime += 10000
-                        prgTest.redrawCanvas(prgTime%prgTest.stats.max)
+                        prgTime = (prgTime + 10000)%prgTest.stats.max
+                        prgTest.redrawCanvas(prgTime)
                     }
                 },100)
             }

@@ -126,6 +126,8 @@ L.WorldFile = L.ElementOverlay.extend({
         image.style['transform'] = matrix3d
     },
 
+    // gets called by leaflet
+    //
     _animateZoom: function (e) {
         this._updateTransform()
     },

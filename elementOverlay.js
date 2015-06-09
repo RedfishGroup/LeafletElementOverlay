@@ -17,8 +17,11 @@ L.ElementOverlay = L.ImageOverlay.extend({
       img.src = this._url;
     }else{
       img = this._image = this._url;
-      //L.DomUtil.addClass( img, 'leaflet-image-layer')
-      //L.DomUtil.addClass( img, this._zoomAnimated ? 'leaflet-zoom-animated' : '')
+      L.DomUtil.addClass( img, 'leaflet-image-layer')
+      if( this._zoomAnimated) {
+        L.DomUtil.addClass( img,'leaflet-zoom-animated' )
+      }
+ 
       setTimeout( L.bind(this.fire, this, 'load'),0);
     }
 

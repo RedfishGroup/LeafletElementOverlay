@@ -51,7 +51,7 @@
                     ctx.fillStyle="#0f0"
                     ctx.fillRect( Math.floor(Math.random()*can.width), Math.floor(Math.random()*can.height), Math.floor(Math.random()*80), Math.floor(Math.random()*80))
 
-                }, 90)
+                }, 200)
 
                 loadUpworldFile()
                 loadUpProgression()
@@ -63,7 +63,7 @@
                 var paramTest = new L.WorldFile({imageUrl:"data/splat.png",params:{a:0.039,b:0,c:2,d:0,e:0.019,f:2}, opacity:0.4})
                 paramTest.addTo(map)
                 //load from url
-                var urlTest = new L.WorldFile({imageUrl:"data/NM-N6S-F5PS.png", textUrl:"data/NM-N6S-F5PS.pgw"})
+                var urlTest = new L.WorldFile({imageUrl:"data/NM-N6S-F5PS.png", textUrl:"data/NM-N6S-F5PS.pgw", opacity:0.4})
                 urlTest.addTo(map)
                 //
                 // preloaded image
@@ -72,7 +72,7 @@
                     console.log('preload test running')
                     var w = 8/this.width
                     var h = -6/this.height
-                    var preload = new L.WorldFile({imageUrl:this,params:{a:w,b:0,c:6,d:0,e:h,f:-5}, opacity:0.7})
+                    preload = new L.WorldFile({imageUrl:this,params:{a:w,b:0.01,c:3,d:0,e:h,f:-5}, opacity:0.7})
                     preload.addTo(map)
                 }
                 img.src="data/dog.jpg"
@@ -83,13 +83,13 @@
                     if( Math.random()>0.5){
                         imgurl = "data/NM-N6S-F5PS.png"
                     }
-                    paramTest.refreshWorldFile( {imageUrl:imgurl,params:{a:0.039,b:0,c:2 + Math.random(),d:0,e:0.019,f:2+ Math.random()}, opacity:0.4} )
-                },1000)
+                    paramTest.refreshWorldFile( {imageUrl:imgurl,params:{a:0.039,b:0,c:2 + Math.random(),d:0,e:0.019+Math.random()/60,f:2+ Math.random()}, opacity:0.4} )
+                },10000)
             }
 
             function loadUpProgression() {
                 console.log('progression')
-                prgTest = new L.ProgresionLayer({imageUrl:"data/NM-N6S-F5PS.png",params:{a:0.039,b:0,c:2,d:0,e:0.019,f:-4}})
+                prgTest = new L.ProgresionLayer({imageUrl:"data/NM-N6S-F5PS.png",params:{a:0.039,b:0,c:2,d:0,e:-0.019,f:-4}})
                 prgTest.addTo(map)
                 var prgTime = 0
                 setInterval( function(){

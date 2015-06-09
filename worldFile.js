@@ -99,8 +99,8 @@ L.WorldFile = L.ElementOverlay.extend({
     // Converts a latlng on the world to a pixel coordinate in the map's 
     // div.
     latlngToContainerPoint: function(latlng) {
-        var pixel_on_world = map.latLngToLayerPoint(latlng);
-        var pixel_in_container = map.layerPointToContainerPoint(pixel_on_world);
+        var pixel_on_world = this._map.latLngToLayerPoint(latlng);
+        var pixel_in_container = this._map.layerPointToContainerPoint(pixel_on_world);
         return pixel_in_container;
     },
 
@@ -116,7 +116,7 @@ L.WorldFile = L.ElementOverlay.extend({
         var markerUl = this.latlngToContainerPoint(ul)
         var markerLl = this.latlngToContainerPoint(ll)
         var markerUr = this.latlngToContainerPoint(ur)
-        var offset = map.layerPointToContainerPoint( new L.Point(0,0))
+        var offset = this._map.layerPointToContainerPoint( new L.Point(0,0))
         //calculate transform matrix
         var m11 = (markerUr.x - markerUl.x) / wid
         var m12 = (markerUr.y - markerUl.y) / wid
@@ -125,9 +125,8 @@ L.WorldFile = L.ElementOverlay.extend({
         var dx =  markerUl.x - offset.x
         var dy =  markerUl.y - offset.y
         //there it is
-        console.log(offset)
         var matrix3d = "matrix(" +m11+ ", "+m21+", "+m12+", "+m22+", "+dx+", "+dy+")"
-        console.log(matrix3d)
+        //Set the style
         image.style[this.TRANSFORMORIGIN] = '0 0'
         image.style['transform'] = matrix3d
     },

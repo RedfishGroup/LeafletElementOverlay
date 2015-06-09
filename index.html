@@ -22,6 +22,14 @@
                 width: 200px;
                 height: 150px; 
             }
+            #fooo2 {
+                background-color: yellow;
+                border-radius: 10px;
+                border: 5px solid #8AC007;
+                padding: 20px; 
+                width: 200px;
+                height: 150px; 
+            }
         </style>
         <script type="text/javascript">
             $(document).ready(function() {
@@ -36,7 +44,7 @@
                 var div = document.createElement("div")
                 div.id = "fooo"
                 div.style.background = "rgba(255,255,255,0.5)"
-                div.innerHTML = "<h1>This is a div element</h1>"
+                div.innerHTML = "<h3>This is a div element</h3> in an element overlay"
                 var layer2 = L.elementOverlay( div, bounds2).addTo(map)
                 //canvas overlay
                 var bounds2 = new L.LatLngBounds( new L.LatLng(35.5,-108), new L.LatLng(35,-107.6))
@@ -88,6 +96,13 @@
                     }
                     paramTest.refreshWorldFile( {imageUrl:imgurl,params:{a:0.0039,b:0,c:-106, d:0.0001,e:0.0019,f:35 + Math.random()/10}, opacity:0.4} )
                 },1000)
+                //
+                // test div with world file
+                var div = document.createElement("div")
+                div.id = "fooo2"
+                div.innerHTML = "<h1>Div Element with worldfile</h1>"
+                var divLayer2 = new L.WorldFile({image:div,params:{a:0.002,b:0.003,c:-107, d:0.001,e:-0.0010,f:35.8}, opacity:0.7})
+                divLayer2.addTo(map)
             }
 
             function loadUpProgression() {

@@ -9,24 +9,19 @@ usgage:
     urlTest.addTo(map)
 */
 L.WorldFile = L.ElementOverlay.extend({
+
+    params: {a:1, b:0, c:0, d:0, e:1, f:0},
+
     initialize: function (options) { //options {imgUrl, textUrl}
         console.log('init called')
         this.refreshWorldFile(options)
         L.setOptions(this, options)
-        this.zoomAnimated = false
         this.TRANSFORMORIGIN = L.DomUtil.testProp(['TransformOrigin', 'WebkitTransformOrigin', 'MozTransformOrigin', 'msTransformOrigin', 'OTransformOrigin'])
     },
-
-    params: {a:1, b:0, c:0, d:0, e:1, f:0},
-    zoomAnimated:false,
 
     // change the world file
     //
     refreshWorldFile: function(options) {
-        // some default values
-        var southWest = L.latLng(0,0)
-        var northEast = L.latLng(1,1)
-        this._bounds = L.latLngBounds(southWest, northEast);
         // check
         if( !options.image && !options.imageUrl) {
             throw('no image specified. ')
@@ -47,6 +42,8 @@ L.WorldFile = L.ElementOverlay.extend({
         this.setUrl(options.image || options.imageUrl)
     },
 
+    // Load the text from the network
+    //
     loadText: function(textUrl) {
         var oReq = new XMLHttpRequest()
         oReq.onload = function(e){
@@ -56,20 +53,22 @@ L.WorldFile = L.ElementOverlay.extend({
         oReq.send()
     },
 
+    // Parse a standard world file in epsg:4326. Todo support other projections
+    //
     parseText: function(text) {
         this.worldFileText = text
-        var items = text.split("\n");
+        var items = text.split("\n")
         if(items.length < 6) {
             throw("world file not in correct format")
         }
         for( var i=0; i < 6; i++) {
             var it=items[i];
-            items[i] = Number(it);
+            items[i] = Number(it)
             if( items[i] == NaN){
                 throw(" world file format error" +  items[i])
             }
         }
-        var params = {a:items[0], b:items[2], c:items[4], d:items[1], e:items[3], f:items[5]};
+        var params = {a:items[0], b:items[2], c:items[4], d:items[1], e:items[3], f:items[5]}
         this.params = params
         this.parseParams()
     },
@@ -77,12 +76,6 @@ L.WorldFile = L.ElementOverlay.extend({
     parseParams:function(params){
         params = params || this.params
         if( this._image && params){
-            var wid = this._image.naturalWidth || this._image.width
-            var hei = this._image.naturalHeight || this._image.height
-            var lr = this.pixelToWorld(wid,hei) //L.latLng(params.e*wid + params.f, params.a*hei + params.c)
-            var ul = this.pixelToWorld(0,0) //L.latLng(params.f, params.c)
-            var ll = this.pixelToWorld(0,hei)
-            this._bounds =  L.latLngBounds(ul, lr)
             this._reset()
         }
     },
@@ -99,15 +92,17 @@ L.WorldFile = L.ElementOverlay.extend({
     // Converts a latlng on the world to a pixel coordinate in the map's 
     // div.
     latlngToContainerPoint: function(latlng) {
-        var pixel_on_world = this._map.latLngToLayerPoint(latlng);
-        var pixel_in_container = this._map.layerPointToContainerPoint(pixel_on_world);
-        return pixel_in_container;
+        var pixel_on_world = this._map.latLngToLayerPoint(latlng)
+        var pixel_in_container = this._map.layerPointToContainerPoint(pixel_on_world)
+        return pixel_in_container
     },
 
-    _reset: function () {
+    // update the css for the element
+    //
+    _updateTransform: function() {
         var image = this._image
-        var wid = this._image.naturalWidth || this._image.width
-        var hei = this._image.naturalHeight || this._image.height
+        var wid = image.naturalWidth || image.width
+        var hei = image.naturalHeight || image.height
         var lr = this.pixelToWorld(wid,hei) 
         var ul = this.pixelToWorld(0,0) 
         var ll = this.pixelToWorld(0,hei)
@@ -130,4 +125,15 @@ L.WorldFile = L.ElementOverlay.extend({
         image.style[this.TRANSFORMORIGIN] = '0 0'
         image.style['transform'] = matrix3d
     },
+
+    _animateZoom: function (e) {
+        this._updateTransform()
+    },
+
+    // gets called after the zoom has changed
+    //
+    _reset: function () {
+        this._updateTransform()
+    },
+
 })

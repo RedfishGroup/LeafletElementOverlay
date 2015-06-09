@@ -38,7 +38,7 @@
                 map.setView([36, -106], 8);
                //normal image overlay
                 var bounds = new L.LatLngBounds( new L.LatLng(35.5,-108.5), new L.LatLng(35,-108.1))
-                var layer = L.elementOverlay('./leaflet/images/layers.png', bounds).addTo(map)
+                var layer = L.elementOverlay('https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.3/images/layers.png', bounds).addTo(map)
                 //div overlay
                 var bounds2 = new L.LatLngBounds( new L.LatLng(35.5,-107.5), new L.LatLng(35,-107))
                 var div = document.createElement("div")

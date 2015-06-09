@@ -31,14 +31,35 @@ L.ElementOverlay = L.ImageOverlay.extend({
     img.style.position = "absolute"
   },
 
-  setUrl: function (url) { //this is only needed for leaflet < 0.7.3. Can be removed with 1.0, but there is no CDN yet
+//
+// this is only needed for leaflet < 0.7.3. Can be removed with 1.0, but there is no CDN yet
+  setUrl: function (url) { 
     this._url = url;
-
     if (this._image) {
       this._image.src = url;
     }
     return this;
   },
+  //
+  // This is also some bs related to the stable version
+  //  remove this for version 1.0
+  onAdd: function (map) {
+    this._map = map;
+    if (!this._image) {
+      this._initImage();
+       if (this.options.opacity < 1) {
+        this._updateOpacity();
+      }
+    }
+    map._panes.overlayPane.appendChild(this._image);
+    map.on('viewreset', this._reset, this);
+    if (map.options.zoomAnimation && L.Browser.any3d) {
+      map.on('zoomanim', this._animateZoom, this);
+    }
+    this._reset();
+  },
+
+
 
 });
 

@@ -1,12 +1,12 @@
 <html>
     <head>
         <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
-        <script type="text/javascript" src="./leaflet/leaflet-src.js"></script>
+        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.3/leaflet-src.js"></script>
         <script src="elementOverlay.js"></script>
         <script src="worldFile.js"></script>
         <script src="progressionLayer.js"></script>
         <script ></script>
-        <link rel="stylesheet" href="./leaflet/leaflet.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.3/leaflet.css"/>
         <style>
             #map {
                 width: 100%;
@@ -38,7 +38,7 @@
                 map.setView([36, -106], 8);
                //normal image overlay
                 var bounds = new L.LatLngBounds( new L.LatLng(35.5,-108.5), new L.LatLng(35,-108.1))
-                var layer = L.elementOverlay('./leaflet/images/layers.png', bounds).addTo(map)
+                var layer = L.elementOverlay('https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.3/images/layers.png', bounds).addTo(map)
                 //div overlay
                 var bounds2 = new L.LatLngBounds( new L.LatLng(35.5,-107.5), new L.LatLng(35,-107))
                 var div = document.createElement("div")

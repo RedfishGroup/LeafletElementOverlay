@@ -103,6 +103,11 @@ L.WorldFile = L.ElementOverlay.extend({
         var image = this._image
         var wid = image.naturalWidth || image.width
         var hei = image.naturalHeight || image.height
+        // if the above measurements fail it is probably a div element 
+        if( !wid || hei){
+            wid = image.offsetWidth
+            hei = image.offsetHeight
+        }
         var lr = this.pixelToWorld(wid,hei) 
         var ul = this.pixelToWorld(0,0) 
         var ll = this.pixelToWorld(0,hei)

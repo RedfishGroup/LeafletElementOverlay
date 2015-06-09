@@ -19,21 +19,19 @@
             $(document).ready(function() {
                 console.log('ready')
                 var map = window.map = init_map("map")
-               
+                map.setView([36, -106], 8);
                //normal image overlay
-                var bounds = new L.LatLngBounds( new L.LatLng(0.1,0.1), new L.LatLng(3,3))
+                var bounds = new L.LatLngBounds( new L.LatLng(35.5,-108.5), new L.LatLng(35,-108.1))
                 var layer = L.elementOverlay('./leaflet/images/layers.png', bounds).addTo(map)
-                
                 //div overlay
-                var bounds2 = new L.LatLngBounds( new L.LatLng(-12,-12), new L.LatLng(-0.1,-0.1))
+                var bounds2 = new L.LatLngBounds( new L.LatLng(35.5,-107.5), new L.LatLng(35,-107))
                 var div = document.createElement("div")
                 div.id = "fooo"
                 div.style.background = "rgba(255,255,255,0.5)"
                 div.innerHTML = "<h1>This is a div element</h1>"
                 var layer2 = L.elementOverlay( div, bounds2).addTo(map)
-                
                 //canvas overlay
-                var bounds2 = new L.LatLngBounds( new L.LatLng(0,-9), new L.LatLng(8,-1))
+                var bounds2 = new L.LatLngBounds( new L.LatLng(35.5,-108), new L.LatLng(35,-107.6))
                 var canvas = document.createElement("canvas")
                 canvas.width=canvas.height=300
                 var ctx = canvas.getContext('2d')
@@ -41,7 +39,6 @@
                 ctx.fillRect(0,0,300,300)
                 canvas.id = "foocan"
                 var layer3 = L.elementOverlay( canvas, bounds2).addTo(map)
-                
                 //add some animation to prove its a canvas
                 setInterval( function(){
                     var can = document.getElementById('foocan')
@@ -52,15 +49,13 @@
                     ctx.fillRect( Math.floor(Math.random()*can.width), Math.floor(Math.random()*can.height), Math.floor(Math.random()*80), Math.floor(Math.random()*80))
 
                 }, 200)
-
                 loadUpworldFile()
                 loadUpProgression()
-
                 return;
             });
 
             function loadUpworldFile(){
-                var paramTest = new L.WorldFile({imageUrl:"data/splat.png",params:{a:0.039,b:0,c:2,d:0,e:0.019,f:2}, opacity:0.4})
+                var paramTest = new L.WorldFile({imageUrl:"data/splat.png",params:{a:0.0039,b:0,c:-106,d:0,e:0.0019,f:35}, opacity:0.4})
                 paramTest.addTo(map)
                 //load from url
                 var urlTest = new L.WorldFile({imageUrl:"data/NM-N6S-F5PS.png", textUrl:"data/NM-N6S-F5PS.pgw", opacity:0.4})
@@ -72,7 +67,7 @@
                     console.log('preload test running')
                     var w = 8/this.width
                     var h = -6/this.height
-                    preload = new L.WorldFile({imageUrl:this,params:{a:w,b:0.01,c:3,d:0,e:h,f:-5}, opacity:0.7})
+                    preload = new L.WorldFile({imageUrl:this,params:{a:0.002,b:0.001,c:-106, d:0,e:-0.0010,f:36.6}, opacity:0.7})
                     preload.addTo(map)
                 }
                 img.src="data/dog.jpg"
@@ -83,13 +78,13 @@
                     if( Math.random()>0.5){
                         imgurl = "data/NM-N6S-F5PS.png"
                     }
-                    paramTest.refreshWorldFile( {imageUrl:imgurl,params:{a:0.039,b:0,c:2 + Math.random(),d:0,e:0.019+Math.random()/60,f:2+ Math.random()}, opacity:0.4} )
-                },10000)
+                    paramTest.refreshWorldFile( {imageUrl:imgurl,params:{a:0.0039,b:0,c:-106, d:0.0001,e:0.0019,f:35 + Math.random()/10}, opacity:0.4} )
+                },1000)
             }
 
             function loadUpProgression() {
                 console.log('progression')
-                prgTest = new L.ProgresionLayer({imageUrl:"data/NM-N6S-F5PS.png",params:{a:0.039,b:0,c:2,d:0,e:-0.019,f:-4}})
+                prgTest = new L.ProgresionLayer({imageUrl:"data/NM-N6S-F5PS.png",textUrl:"data/NM-N6S-F5PS.pgw"})
                 prgTest.addTo(map)
                 var prgTime = 0
                 setInterval( function(){

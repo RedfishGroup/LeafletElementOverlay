@@ -144,3 +144,4 @@ L.WorldFile = L.ElementOverlay.extend({
     },
 
 })
+

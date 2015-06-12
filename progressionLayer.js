@@ -3,7 +3,7 @@ L.ProgresionLayer = L.WorldFile.extend({
         A hacky way to display an animated fire progression on the map
 
     */
-      _initImage: function () {
+    _initImage: function () {
         this._dataImg;
         if(this._image) {
           this.onRemove()
@@ -11,6 +11,17 @@ L.ProgresionLayer = L.WorldFile.extend({
         this._image = L.DomUtil.create('canvas',
             'leaflet-image-layer ' + (this._zoomAnimated ? 'leaflet-zoom-animated' : ''));
         this._image.width = this._image.height = 12
+        this.setUrl( this._url)
+        this._image.onselectstart = L.Util.falseFn;
+        this._image.onmousemove = L.Util.falseFn;
+        this._image.alt = this.options.alt;
+        this._image.style.position = "absolute"
+    },
+
+    setUrl: function (url) { 
+        if( url){
+            this._url = url;
+        }
         if( typeof this._url === "string"){
           this._dataImg = new Image()
           this._dataImg.onload = function(){
@@ -23,12 +34,9 @@ L.ProgresionLayer = L.WorldFile.extend({
           this.prepareCanvas()
           setTimeout( L.bind(this.fire, this, 'load'),0);
         }
-        this._image.onselectstart = L.Util.falseFn;
-        this._image.onmousemove = L.Util.falseFn;
-        this._image.alt = this.options.alt;
-        this._image.style.position = "absolute"
-      },
-
+        return this;
+    },
+  
     prepareCanvas : function() {
         console.log('prepare canvas called')
         this.getDataFromImage(this._dataImg)
@@ -36,7 +44,7 @@ L.ProgresionLayer = L.WorldFile.extend({
         this._image.height = this._dataImg.naturalHeight
         this._ctx = this._image.getContext('2d')
         this._canvasData = this._ctx.getImageData( 0,0, this._image.width, this._image.height)
-        this.redrawCanvas(0)
+        //this.redrawCanvas(0)
     },
 
     redrawCanvas: function(time) {
@@ -44,7 +52,7 @@ L.ProgresionLayer = L.WorldFile.extend({
         for(var i=0; i < this.values24bit.length; i++) {
             var i2 = 4*i
             var toa= this.values24bit[i] 
-            if( toa > 256*256*255){
+            if( toa <= 0 || toa > 256*256*255){
                 this._canvasData.data[i2+3] = 0
             } else if( toa <= time) {
                 var tmp = (time - toa)/(this.stats.range)
@@ -111,7 +119,5 @@ L.ProgresionLayer = L.WorldFile.extend({
         var imgData = ctx.getImageData(0,0, can.width, can.height);
         return imgData;
     },
-
-
-
 })
+

@@ -21,10 +21,8 @@ L.ElementOverlay = L.ImageOverlay.extend({
       if( this._zoomAnimated) {
         L.DomUtil.addClass( img,'leaflet-zoom-animated' )
       }
- 
       setTimeout( L.bind(this.fire, this, 'load'),0);
     }
-
     img.onselectstart = L.Util.falseFn;
     img.onmousemove = L.Util.falseFn;
     img.alt = this.options.alt;
@@ -66,3 +64,4 @@ L.ElementOverlay = L.ImageOverlay.extend({
 L.elementOverlay = function (url, bounds, options) {
   return new L.ElementOverlay(url, bounds, options);
 };
+

@@ -4,6 +4,7 @@
         <script src="elementOverlay.js"></script>
         <script src="worldFile.js"></script>
         <script src="progressionLayer.js"></script>
+        <script src="staticLayer.js"></script>
         <script ></script>
         <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet/v1.0.0-beta.2/leaflet.css" />
         <style>
@@ -35,9 +36,11 @@
                 console.log('ready')
                 var map = window.map = init_map("map")
                 map.setView([36, -106], 8);
-               //normal image overlay
+                //
+                //normal image overlay
                 var bounds = new L.LatLngBounds( new L.LatLng(35.5,-108.5), new L.LatLng(35,-108.1))
                 var layer = L.elementOverlay('https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.3/images/layers.png', bounds).addTo(map)
+                //
                 //div overlay
                 var bounds2 = new L.LatLngBounds( new L.LatLng(35.5,-107.5), new L.LatLng(35,-107))
                 var div = document.createElement("div")
@@ -45,6 +48,10 @@
                 div.style.background = "rgba(255,255,255,0.5)"
                 div.innerHTML = "<h3>This is a div element</h3> in an element overlay"
                 var layer2 = L.elementOverlay( div, bounds2).addTo(map)
+                //
+                // add static layer
+                addStaticLayer()
+                //
                 //canvas overlay
                 var bounds2 = new L.LatLngBounds( new L.LatLng(35.5,-108), new L.LatLng(35,-107.6))
                 var canvas = document.createElement("canvas")
@@ -117,6 +124,12 @@
                 },100)
             }
 
+            function addStaticLayer() {
+              var div = document.createElement('div')
+              div.innerHTML = "<h1>Static Div</h1>"
+              //div overlay
+              var layer2 = new L.StaticLayer(div).addTo(map)
+            }
 
             function init_map(map_div) {
                 var map = new L.Map(map_div);

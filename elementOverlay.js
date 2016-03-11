@@ -1,10 +1,10 @@
 /*
  * L.ElementOverlay is used to overlay images over the map (to specific geographical bounds).
- *    Basically the same as an image overlay, but it takes any element 
+ *    Basically the same as an image overlay, but it takes any element
  */
 
 L.ElementOverlay = L.ImageOverlay.extend({
- 
+
   _initImage: function () {
     var img;
     if(this._image) {
@@ -31,7 +31,7 @@ L.ElementOverlay = L.ImageOverlay.extend({
 
 //
 // this is only needed for leaflet < 0.7.3. Can be removed with 1.0, but there is no CDN yet
-  setUrl: function (url) { 
+  setUrl: function (url) {
     this._url = url;
     if (this._image) {
       this._image.src = url;
@@ -64,4 +64,3 @@ L.ElementOverlay = L.ImageOverlay.extend({
 L.elementOverlay = function (url, bounds, options) {
   return new L.ElementOverlay(url, bounds, options);
 };
-

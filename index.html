@@ -129,6 +129,8 @@
               div.innerHTML = "<h1>Static Div</h1>"
               //div overlay
               var layer2 = new L.StaticLayer(div).addTo(map)
+              //for debugging
+              window.statLay = layer2
             }
 
             function init_map(map_div) {

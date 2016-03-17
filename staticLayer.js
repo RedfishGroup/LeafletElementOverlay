@@ -30,6 +30,7 @@ L.StaticLayer = L.ElementOverlay.extend({
       this._image.height = rect.height
       ctx = this._image.getContext('2d')
     }
+    return rect
   },
 
   _reset: function () {

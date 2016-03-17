@@ -22,23 +22,14 @@ L.StaticLayer = L.ElementOverlay.extend({
     this._reset()
   },
 
-  calcMatrix: function() {
-    var b = map.getBounds()
-    var p = map.getPixelBounds()
-    var pw = p.max.x - p.min.x
-    var ph = p.max.y - p.min.y
-    var bw = b.getEast() - b.getWest()
-    var bh = b.getNorth() - b.getSouth()
-    var rx = bw / pw
-    var ry = bh / ph
-    var dx = - b.getWest()
-    var dy = - b.getNorth()
-    // projection matrix. I guess these are column vectors so it looks transposed here.
-    var projection = [rx,0,0,0,
-                      0,ry,0,0,
-                      0,0,1,0,
-                      dx,dy,0,1 ]
-    return projection
+  // I read that getBoundingClientRect() is really slow so it should be called by some resize event
+  resizeToFillMap: function() {
+    var rect = this._map.getContainer().getBoundingClientRect()
+    if(rect.width != this._image.width || rect.height != this._image.height) {
+      this._image.width = rect.width
+      this._image.height = rect.height
+      ctx = this._image.getContext('2d')
+    }
   },
 
   _reset: function () {

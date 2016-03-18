@@ -34,8 +34,10 @@ L.StaticLayer = L.ElementOverlay.extend({
   },
 
   _reset: function () {
-    var pos = this._map._getMapPanePos().multiplyBy(-1);
-    L.DomUtil.setTransform(this.getElement(), pos, 1)
+    if(this._map) {
+      var pos = this._map._getMapPanePos().multiplyBy(-1);
+      L.DomUtil.setTransform(this.getElement(), pos, 1)
+    }
     this.registerMyEvents.bind(this)()
   },
 

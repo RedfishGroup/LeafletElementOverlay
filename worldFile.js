@@ -76,6 +76,7 @@ L.WorldFile = L.ElementOverlay.extend({
     parseParams:function(params){
         params = params || this.params
         if( this._image && params){
+            this.params = params
             this._reset()
         }
     },
@@ -89,7 +90,7 @@ L.WorldFile = L.ElementOverlay.extend({
         return L.latLng(lat,lon)
     },
 
-    // Converts a latlng on the world to a pixel coordinate in the map's 
+    // Converts a latlng on the world to a pixel coordinate in the map's
     // div.
     latlngToContainerPoint: function(latlng) {
         var pixel_on_world = this._map.latLngToLayerPoint(latlng)
@@ -103,15 +104,15 @@ L.WorldFile = L.ElementOverlay.extend({
         var image = this._image
         var wid = image.naturalWidth || image.width
         var hei = image.naturalHeight || image.height
-        // if the above measurements fail it is probably a div element 
+        // if the above measurements fail it is probably a div element
         if( !wid || hei){
             wid = image.offsetWidth
             hei = image.offsetHeight
         }
-        var lr = this.pixelToWorld(wid,hei) 
-        var ul = this.pixelToWorld(0,0) 
+        var lr = this.pixelToWorld(wid,hei)
+        var ul = this.pixelToWorld(0,0)
         var ll = this.pixelToWorld(0,hei)
-        var ur = this.pixelToWorld(wid,0) 
+        var ur = this.pixelToWorld(wid,0)
         var markerLr = this.latlngToContainerPoint(lr)
         var markerUl = this.latlngToContainerPoint(ul)
         var markerLl = this.latlngToContainerPoint(ll)
@@ -144,4 +145,3 @@ L.WorldFile = L.ElementOverlay.extend({
     },
 
 })
-

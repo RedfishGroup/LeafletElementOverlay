@@ -1,0 +1,19 @@
+{
+  "name": "leafletelementoverlay",
+  "version": "1.0.0",
+  "description": "Leaflet Element Overlay\r ================",
+  "main": "elementOverlay.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/RedfishGroup/LeafletElementOverlay.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/RedfishGroup/LeafletElementOverlay/issues"
+  },
+  "homepage": "https://github.com/RedfishGroup/LeafletElementOverlay#readme"
+}

@@ -1,6 +1,6 @@
 {
-  "name": "leafletelementoverlay",
-  "version": "1.0.0",
+  "name": "@redfish/leafletelementoverlay",
+  "version": "1.1.0",
   "description": "Leaflet Element Overlay\r ================",
   "main": "elementOverlay.js",
   "scripts": {
@@ -10,10 +10,13 @@
     "type": "git",
     "url": "git+https://github.com/RedfishGroup/LeafletElementOverlay.git"
   },
-  "author": "",
+  "author": "cody@simtable.com",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/RedfishGroup/LeafletElementOverlay/issues"
   },
-  "homepage": "https://github.com/RedfishGroup/LeafletElementOverlay#readme"
+  "homepage": "https://github.com/RedfishGroup/LeafletElementOverlay#readme",
+  "module": "elementOverlay.esm.js",
+  "keywords": ["Leaflet", "GIS"]
+
 }

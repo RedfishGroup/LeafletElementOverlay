@@ -1,6 +1,6 @@
 {
   "name": "@redfish/leafletelementoverlay",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "description": "Leaflet Element Overlay\r ================",
   "main": "elementOverlay.js",
   "scripts": {

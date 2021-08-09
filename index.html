@@ -31,7 +31,10 @@
                 height: 150px;
             }
         </style>
-        <script type="text/javascript">
+        <script type="module">
+        import worldFileES6Factory from './worldFile.esm.js'
+        console.log(worldFileES6Factory)
+
         document.addEventListener("DOMContentLoaded", function() {
                 console.log('ready')
                 var map = window.map = init_map("map")
@@ -80,7 +83,8 @@
                 var paramTest = new L.WorldFile({imageUrl:"data/splat.png",params:{a:0.0039,b:0,c:-106,d:0,e:0.0019,f:35}, opacity:0.4})
                 paramTest.addTo(map)
                 //load from url
-                var urlTest = new L.WorldFile({imageUrl:"data/NM-N6S-F5PS.png", textUrl:"data/NM-N6S-F5PS.pgw", opacity:0.4})
+                const WorldFile = worldFileES6Factory(L)
+                var urlTest = new WorldFile({imageUrl:"data/NM-N6S-F5PS.png", textUrl:"data/NM-N6S-F5PS.pgw", opacity:0.4})
                 urlTest.addTo(map)
                 //
                 // preloaded image
@@ -89,7 +93,7 @@
                     console.log('preload test running')
                     var w = 8/this.width
                     var h = -6/this.height
-                    preload = new L.WorldFile({imageUrl:this,params:{a:0.002,b:0.001,c:-106, d:0,e:-0.0010,f:36.6}, opacity:0.7})
+                    const preload = new WorldFile({imageUrl:this,params:{a:0.002,b:0.001,c:-106, d:0,e:-0.0010,f:36.6}, opacity:0.7})
                     preload.addTo(map)
                 }
                 img.src="data/dog.jpg"
@@ -113,7 +117,7 @@
 
             function loadUpProgression() {
                 console.log('progression')
-                prgTest = new L.ProgresionLayer({imageUrl:"data/NM-N6S-F5PS.png",textUrl:"data/NM-N6S-F5PS.pgw"})
+                const prgTest = new L.ProgresionLayer({imageUrl:"data/NM-N6S-F5PS.png",textUrl:"data/NM-N6S-F5PS.pgw"})
                 prgTest.addTo(map)
                 var prgTime = 0
                 setInterval( function(){

@@ -134,6 +134,7 @@ export default function (L) {
       var ul = this.pixelToWorld(0, 0);
       var ll = this.pixelToWorld(0, hei);
       var ur = this.pixelToWorld(wid, 0);
+      this._bounds = new L.LatLngBounds([ll, ur]);
       var markerLr = this.latlngToContainerPoint(lr);
       var markerUl = this.latlngToContainerPoint(ul);
       var markerLl = this.latlngToContainerPoint(ll);
